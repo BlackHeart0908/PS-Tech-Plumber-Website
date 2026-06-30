@@ -1,0 +1,113 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import business from '../../data/business.json';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const dateStr = post.data.pubDate.toLocaleDateString('en-IN', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  'headline': post.data.title,
+  'description': post.data.description,
+  'datePublished': post.data.pubDate.toISOString(),
+  'dateModified': (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  'author': {
+    '@type': 'Organization',
+    'name': business.name,
+  },
+  'publisher': {
+    '@type': 'Organization',
+    'name': business.name,
+  },
+  'mainEntityOfPage': {
+    '@type': 'WebPage',
+    '@id': `https://${business.domain}/blog/${post.slug}`,
+  },
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} | PS Tech Indore`}
+  description={post.data.description}
+  canonical={`/blog/${post.slug}`}
+  schema={blogSchema}
+>
+  <!-- Article header -->
+  <div class="bg-sky-light py-14 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Blog', href: '/blog' }, { label: post.data.title }]} />
+      <div class="mt-4 flex items-center gap-3 mb-4">
+        <span class="bg-azure/10 text-azure text-xs font-medium px-3 py-1.5 rounded-full capitalize">
+          {post.data.category}
+        </span>
+        <span class="text-slate-400 text-sm">{dateStr}</span>
+        <span class="text-slate-400 text-sm">· {post.data.author}</span>
+      </div>
+      <h1 class="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-navy leading-tight mb-4">
+        {post.data.title}
+      </h1>
+      <p class="text-slate-600 text-xl">{post.data.description}</p>
+    </div>
+  </div>
+
+  <!-- Inline CTA banner -->
+  <div class="bg-navy py-4 px-4">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-sky-light text-sm">
+        <strong class="text-white">Need help now?</strong> Call Indore's top-rated plumber:
+      </p>
+      <a
+        href={`tel:${business.phoneRaw}`}
+        class="shrink-0 bg-amber hover:bg-amber-dark text-navy font-heading font-bold px-5 py-2 rounded-xl text-sm transition-colors"
+      >
+        {business.phone}
+      </a>
+    </div>
+  </div>
+
+  <!-- Article body -->
+  <article class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto prose prose-slate prose-lg prose-headings:font-heading prose-headings:text-navy prose-a:text-azure prose-a:no-underline hover:prose-a:underline">
+      <Content />
+    </div>
+
+    <!-- Author / about -->
+    <div class="max-w-4xl mx-auto mt-12 pt-8 border-t border-slate-200">
+      <div class="flex items-start gap-4 bg-sky-light rounded-2xl p-6">
+        <div class="w-12 h-12 bg-azure rounded-xl flex items-center justify-center text-white font-heading font-bold text-lg shrink-0">
+          PS
+        </div>
+        <div>
+          <p class="font-heading font-bold text-navy">{business.name}</p>
+          <p class="text-slate-600 text-sm mt-0.5">
+            Indore's most trusted plumbers and home services team. {business.rating}★ · {business.reviewCount} Google reviews.
+          </p>
+          <div class="flex gap-3 mt-3">
+            <a href="/services" class="text-azure text-sm font-medium hover:underline">Our Services →</a>
+            <a href="/contact" class="text-azure text-sm font-medium hover:underline">Contact Us →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <CTABand />
+</BaseLayout>

@@ -1,0 +1,125 @@
+---
+import NAP from './NAP.astro';
+import MapEmbed from './MapEmbed.astro';
+import business from '../data/business.json';
+
+const quickLinks = [
+  { href: '/services/plumbing', label: 'Plumbing Services' },
+  { href: '/services/electrical', label: 'Electrical Services' },
+  { href: '/services/interior-design', label: 'Interior Design' },
+  { href: '/services/pop-work', label: 'POP & False Ceiling' },
+  { href: '/service-areas', label: 'Service Areas' },
+  { href: '/work', label: 'Our Work' },
+  { href: '/careers', label: 'Careers' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const areaLinks = [
+  { href: '/service-areas/vijay-nagar', label: 'Vijay Nagar' },
+  { href: '/service-areas/nipania', label: 'Nipania' },
+  { href: '/service-areas/mahalaxmi-nagar', label: 'Mahalaxmi Nagar' },
+  { href: '/service-areas/khajrana', label: 'Khajrana' },
+  { href: '/service-areas/palasia', label: 'Palasia' },
+  { href: '/service-areas/bhawarkuan', label: 'Bhawarkuan' },
+];
+---
+
+<footer class="bg-navy text-sky-light">
+  <!-- Map + columns -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand + NAP -->
+      <div class="lg:col-span-1">
+        <a href="/" class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 bg-azure rounded-xl flex items-center justify-center text-white font-heading font-bold text-lg">
+            PS
+          </div>
+          <div>
+            <span class="text-white font-heading font-bold text-base block">PS Tech</span>
+            <span class="text-sky-light/60 text-xs block">Problem Solver Tech</span>
+          </div>
+        </a>
+        <NAP class="text-sky-light/80 text-sm space-y-1" />
+        <div class="flex gap-3 mt-5">
+          {business.socialFacebook && (
+            <a href={business.socialFacebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center hover:bg-azure transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          )}
+          {business.socialInstagram && (
+            <a href={business.socialInstagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center hover:bg-azure transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          )}
+          {business.socialYoutube && (
+            <a href={business.socialYoutube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center hover:bg-azure transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-white font-heading font-semibold mb-4 text-sm uppercase tracking-widest">Quick Links</h3>
+        <ul class="space-y-2">
+          {quickLinks.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sky-light/70 hover:text-white text-sm transition-colors">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Areas -->
+      <div>
+        <h3 class="text-white font-heading font-semibold mb-4 text-sm uppercase tracking-widest">Areas We Serve</h3>
+        <ul class="space-y-2">
+          {areaLinks.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sky-light/70 hover:text-white text-sm transition-colors">{label}, Indore</a>
+            </li>
+          ))}
+        </ul>
+        <p class="text-sky-light/50 text-xs mt-3">…and all of greater Indore</p>
+      </div>
+
+      <!-- Map -->
+      <div>
+        <h3 class="text-white font-heading font-semibold mb-4 text-sm uppercase tracking-widest">Find Us</h3>
+        <MapEmbed class="rounded-xl overflow-hidden h-40 w-full" />
+        <div class="mt-3 flex flex-col gap-2">
+          <a
+            href={`tel:${business.phoneRaw}`}
+            class="flex items-center justify-center gap-2 bg-azure hover:bg-sky text-white font-bold py-2.5 rounded-xl text-sm transition-colors"
+            data-track="footer-call"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+            Call Now
+          </a>
+          <a
+            href={`https://wa.me/${business.whatsapp}?text=${business.whatsappMessage}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors"
+            data-track="footer-whatsapp"
+          >
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-sky-light/50">
+      <p>© {new Date().getFullYear()} {business.name}. All rights reserved. Indore, Madhya Pradesh.</p>
+      <p>4.9★ · 78 Google Reviews · <a href={business.gbpReviewUrl} target="_blank" rel="noopener noreferrer" class="hover:text-white underline">See all reviews</a></p>
+    </div>
+  </div>
+</footer>

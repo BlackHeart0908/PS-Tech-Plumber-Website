@@ -1,0 +1,48 @@
+---
+// NAP — Name, Address, Phone. Single canonical component for SEO.
+// DO NOT copy-paste this content elsewhere. All pages must use this component.
+import business from '../data/business.json';
+
+interface Props {
+  class?: string;
+  variant?: 'full' | 'compact';
+}
+
+const { class: className = '', variant = 'full' } = Astro.props;
+---
+
+<address class={`not-italic ${className}`} itemscope itemtype="https://schema.org/LocalBusiness">
+  <meta itemprop="name" content={business.name} />
+  <meta itemprop="telephone" content={business.phone} />
+
+  {variant === 'full' ? (
+    <>
+      <p class="font-heading font-bold text-lg" itemprop="name">{business.name}</p>
+      <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+        <span itemprop="streetAddress">{business.address.street}</span>,&nbsp;
+        <span itemprop="addressLocality">{business.address.city}</span>,&nbsp;
+        <span itemprop="addressRegion">{business.address.region}</span>&nbsp;
+        <span itemprop="postalCode">{business.address.postalCode}</span>
+      </p>
+      <p>
+        <a
+          href={`tel:${business.phoneRaw}`}
+          class="hover:underline"
+          itemprop="telephone"
+          data-track="nap-phone-click"
+        >
+          {business.phone}
+        </a>
+      </p>
+      <p class="text-sm opacity-80">{business.openingHoursDisplay}</p>
+    </>
+  ) : (
+    <p>
+      <strong>{business.name}</strong> ·
+      <a href={`tel:${business.phoneRaw}`} class="hover:underline" itemprop="telephone">
+        {business.phone}
+      </a> ·
+      <span itemprop="address">{business.address.city}, {business.address.region}</span>
+    </p>
+  )}
+</address>

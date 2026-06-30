@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import CTABand from '../components/CTABand.astro';
+import { services } from '../data/services.js';
+import business from '../data/business.json';
+
+const title = 'Plumber in Indore | PS Tech – Best Plumbing & Home Services';
+const description =
+  'PS Tech is Indore\'s top-rated plumber — 4.9★ on Google. Same-day plumbing, geyser repair, drain cleaning, electrical & interior services across Vijay Nagar, Nipania, Palasia & all of Indore.';
+---
+
+<BaseLayout title={title} description={description} canonical="/">
+
+  <!-- Hero -->
+  <Hero />
+
+  <!-- Trust bar -->
+  <section class="bg-sky-light py-6 border-y border-azure/10" data-reveal>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        {[
+          { icon: '⭐', stat: '4.9★', label: 'Google Rating' },
+          { icon: '📋', stat: '78+', label: 'Verified Reviews' },
+          { icon: '⚡', stat: '2-Hr', label: 'Response Time' },
+          { icon: '🏠', stat: '6+', label: 'Areas in Indore' },
+        ].map(({ icon, stat, label }) => (
+          <div class="flex flex-col items-center gap-1 py-2">
+            <span class="text-2xl">{icon}</span>
+            <span class="font-heading font-bold text-navy text-xl">{stat}</span>
+            <span class="text-slate-600 text-sm">{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services overview -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8" data-reveal>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-azure font-semibold uppercase tracking-widest text-sm mb-2">What We Do</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-navy mb-4">
+          Every Home Service, One Trusted Team
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto text-lg">
+          From a dripping tap to a full bathroom renovation — PS Tech covers plumbing, electrical, interior design, and POP work across Indore with a single call.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {services.map((svc, i) => (
+          <ServiceCard
+            title={svc.title}
+            tagline={svc.tagline}
+            icon={svc.icon}
+            shortDesc={svc.shortDesc}
+            slug={svc.slug}
+            featured={i === 0}
+          />
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a
+          href="/services"
+          class="inline-flex items-center gap-2 text-azure font-semibold hover:underline"
+        >
+          View all services
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why choose us -->
+  <section class="bg-sky-light py-20 px-4 sm:px-6 lg:px-8" data-reveal>
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-azure font-semibold uppercase tracking-widest text-sm mb-2">Why PS Tech?</p>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-navy mb-6 leading-tight">
+            Indore's Problem Solvers — On Time, Every Time
+          </h2>
+          <div class="space-y-5">
+            {[
+              {
+                icon: '🕐',
+                title: '2-Hour Emergency Response',
+                desc: 'Burst pipe at midnight? We dispatch fast so you\'re never left waiting with a flooding home.',
+              },
+              {
+                icon: '💰',
+                title: 'Transparent, Upfront Pricing',
+                desc: 'You\'ll know the cost before we start. No surprise bills, no hidden charges — ever.',
+              },
+              {
+                icon: '🏅',
+                title: 'Trained & Experienced Technicians',
+                desc: 'Our team has handled everything from new-build plumbing to decades-old GI pipe replacement across Indore.',
+              },
+              {
+                icon: '🧹',
+                title: 'Clean, Respectful Work',
+                desc: 'We use shoe covers, protect your floors, and leave the site cleaner than we found it.',
+              },
+            ].map(({ icon, title, desc }) => (
+              <div class="flex gap-4">
+                <div class="text-2xl mt-0.5 shrink-0">{icon}</div>
+                <div>
+                  <h3 class="font-heading font-semibold text-navy">{title}</h3>
+                  <p class="text-slate-600 text-sm mt-0.5">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <!-- Photo placeholder -->
+        <div class="relative h-80 lg:h-auto rounded-3xl overflow-hidden bg-gradient-to-br from-azure to-navy flex items-center justify-center">
+          <div class="text-center text-white/40 p-8">
+            <div class="text-7xl mb-4">👷</div>
+            <p class="font-heading font-semibold text-lg">Team photo</p>
+            <p class="text-sm">Insert real team/work photo here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service areas teaser -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8" data-reveal>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10">
+        <p class="text-azure font-semibold uppercase tracking-widest text-sm mb-2">Where We Work</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-navy mb-4">
+          Plumbers Across All of Indore
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">
+          We serve all major localities in Indore — from Vijay Nagar's high-rises to Bhawarkuan's growing societies. If you're in Indore, we've got you covered.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center">
+        {business.serviceAreas.map((area) => (
+          <a
+            href={`/service-areas/${area.toLowerCase().replace(/\s+/g, '-')}`}
+            class="px-5 py-2.5 bg-sky-light border border-azure/20 text-navy font-medium rounded-full hover:bg-azure hover:text-white hover:border-azure transition-colors text-sm"
+          >
+            {area}, Indore
+          </a>
+        ))}
+        <a
+          href="/service-areas"
+          class="px-5 py-2.5 bg-navy text-white font-medium rounded-full hover:bg-azure transition-colors text-sm"
+        >
+          + More areas →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="bg-navy py-20 px-4 sm:px-6 lg:px-8" data-reveal>
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-azure font-semibold uppercase tracking-widest text-sm mb-2">What Indore Says</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white mb-2">
+          {business.rating}★ from {business.reviewCount} Google Reviews
+        </h2>
+        <p class="text-sky-light/70 mb-6">Real customers, real results</p>
+        <a
+          href={business.gbpReviewUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-amber font-semibold hover:underline text-sm"
+        >
+          Read all {business.reviewCount} reviews on Google →
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+        {business.reviews.map((review) => (
+          <TestimonialCard
+            author={review.author}
+            rating={review.rating}
+            date={review.date}
+            text={review.text}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <CTABand />
+
+</BaseLayout>

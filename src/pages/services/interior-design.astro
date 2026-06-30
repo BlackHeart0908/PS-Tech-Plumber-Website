@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import { services } from '../../data/services.js';
+import business from '../../data/business.json';
+
+const svc = services.find((s) => s.id === 'interior-design')!;
+
+const title = 'Interior Design Services Indore | Home Renovation – PS Tech';
+const description =
+  'Professional interior design and renovation in Indore. Modular kitchens, bathroom makeovers, flooring, painting, wardrobe installation. Call PS Tech for a consultation.';
+---
+
+<BaseLayout title={title} description={description} canonical="/services/interior-design">
+  <div class="bg-gradient-to-br from-navy to-navy/60 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Services', href: '/services' }, { label: 'Interior Design' }]} />
+      <div class="mt-6 max-w-3xl">
+        <div class="text-5xl mb-4">🏠</div>
+        <h1 class="font-heading font-bold text-4xl sm:text-5xl text-white mb-4">
+          Interior Design in Indore
+        </h1>
+        <p class="text-sky-light/80 text-xl mb-6">
+          Transform your Indore home with PS Tech's end-to-end interior services — from concept and material selection to skilled execution. Modular kitchens, bathroom renovations, living room makeovers, and more.
+        </p>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 bg-amber hover:bg-amber-dark text-navy font-heading font-bold px-7 py-3.5 rounded-xl transition-colors"
+        >
+          Book a Consultation
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto prose prose-slate prose-lg">
+    <h2>End-to-End Interior Solutions for Indore Homes</h2>
+    <p>
+      Moving into a new home in Vijay Nagar or Nipania? Renovating an older property in Mahalaxmi Nagar? PS Tech handles the full scope — interior layout planning, material procurement at fair market prices, and quality execution by skilled craftsmen. We work on apartments, independent houses, and commercial spaces across Indore.
+    </p>
+    <p>
+      Because we also cover plumbing and electrical, we're the single team that can coordinate your kitchen plumbing, electrical points, and modular cabinets — saving you the hassle of managing multiple contractors.
+    </p>
+    <p>
+      Explore our <a href="/work">portfolio</a> to see completed interior projects, or visit our <a href="/blog/bathroom-renovation-indore">bathroom renovation guide</a> for inspiration.
+    </p>
+  </section>
+
+  <section class="pb-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {svc.groups.map((group) => (
+          <div class="bg-sky-light rounded-2xl p-7 border border-azure/10" data-reveal>
+            <h3 class="font-heading font-bold text-navy text-xl mb-5 pb-3 border-b border-azure/20">{group.name}</h3>
+            <ul class="space-y-3">
+              {group.items.map((item) => (
+                <li class="flex items-center gap-3 text-slate-700 text-sm">
+                  <svg class="w-4 h-4 text-azure shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand headline="Ready to transform your Indore home? Let's talk." subtext="Free consultation · No obligation · Design + execution under one team" />
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import { areas } from '../../data/areas.js';
+import business from '../../data/business.json';
+
+const area = areas.find((a) => a.id === 'mahalaxmi-nagar')!;
+const title = `Plumber in Mahalaxmi Nagar Indore | Pipe Replacement & Repair – PS Tech`;
+const description = `Expert plumber in Mahalaxmi Nagar, Indore — GI to CPVC pipe replacement, leak detection, bathroom renovation plumbing. Call PS Tech: ${business.phone}.`;
+---
+
+<BaseLayout title={title} description={description} canonical="/service-areas/mahalaxmi-nagar">
+  <div class="bg-gradient-to-br from-navy to-azure/80 py-14 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Service Areas', href: '/service-areas' }, { label: area.name }]} />
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl text-white mt-5 mb-3">
+        Plumber in Mahalaxmi Nagar, Indore
+      </h1>
+      <p class="text-sky-light/80 text-xl max-w-2xl">
+        Specialists in old GI pipe replacement, hidden leak detection, and bathroom renovation plumbing for Mahalaxmi Nagar's established homes.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-6">
+        <a href={`tel:${business.phoneRaw}`} class="bg-amber hover:bg-amber-dark text-navy font-heading font-bold px-7 py-3.5 rounded-xl transition-colors">
+          Call {business.phone}
+        </a>
+        <a href={`https://wa.me/${business.whatsapp}?text=Hi%20PS%20Tech%2C%20I%20need%20a%20plumber%20in%20Mahalaxmi%20Nagar%20Indore.`}
+           target="_blank" rel="noopener noreferrer"
+           class="bg-green-600 text-white font-heading font-bold px-7 py-3.5 rounded-xl transition-colors hover:bg-green-700">
+          WhatsApp for Mahalaxmi Nagar
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <article class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto prose prose-slate prose-lg">
+    <h2>Plumbing in Mahalaxmi Nagar — What We Know About This Area</h2>
+    <p>{area.description}</p>
+
+    <h2>Is Your Water Reddish-Brown? It's Corroding GI Pipes</h2>
+    <p>
+      Many homes in Mahalaxmi Nagar were built in the 1990s–2000s with galvanised iron (GI) pipes that are now reaching end-of-life. Signs include: brownish water at first tap-on, reduced flow pressure, frequent pinhole leaks, and metallic taste. The solution isn't patching — it's a one-time pipe replacement to modern CPVC or UPVC. This eliminates years of recurring repair costs and restores full water quality. PS Tech has done dozens of such replacements in Mahalaxmi Nagar homes.
+    </p>
+    <ul>
+      {area.commonIssues.map((issue) => <li>{issue}</li>)}
+    </ul>
+
+    <h2>Bathroom Renovation Plumbing in Mahalaxmi Nagar</h2>
+    <p>
+      Upgrading an old bathroom? PS Tech handles the rough plumbing — rerouting supply lines, installing concealed cisterns, shifting drain points, and connecting new shower units. We coordinate with tilers so the plumbing is in place before the tiles go down. See our <a href="/blog/bathroom-renovation-indore">complete bathroom renovation checklist</a> for what to plan.
+    </p>
+    <p>
+      <a href="/contact">Book a plumber in Mahalaxmi Nagar</a> — free site visit for pipe replacement assessment.
+    </p>
+  </article>
+
+  <CTABand headline="Plumber in Mahalaxmi Nagar — pipe replacement experts." />
+</BaseLayout>

@@ -1,0 +1,97 @@
+---
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCallBar from '../components/MobileCallBar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: object | object[];
+  noindex?: boolean;
+}
+
+const { title, description, canonical, ogImage, schema, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B2545" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts — preconnect first for perf -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      schema={schema}
+      noindex={noindex}
+    />
+  </head>
+
+  <body class="bg-white text-navy font-sans antialiased">
+    <Header />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+    <MobileCallBar />
+
+    <!-- Lenis smooth scroll — deferred so it doesn't block -->
+    <script>
+      import('lenis').then(({ default: Lenis }) => {
+        const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }).catch(() => {/* smooth scroll not critical */});
+    </script>
+
+    <!-- GSAP scroll reveals — deferred -->
+    <script>
+      window.addEventListener('load', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        import('gsap').then(async ({ gsap }) => {
+          const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+          gsap.registerPlugin(ScrollTrigger);
+
+          gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
+            gsap.fromTo(
+              el,
+              { opacity: 0, y: 40 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: el,
+                  start: 'top 88%',
+                },
+              }
+            );
+          });
+        }).catch(() => {/* animations not critical */});
+      });
+    </script>
+  </body>
+</html>

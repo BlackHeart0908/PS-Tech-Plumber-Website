@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap — update with final domain before launch
+# Sitemap: https://FINAL_DOMAIN/sitemap-index.xml
+
+# Disallow admin/draft paths (none in this static site, but good practice)
+Disallow: /api/

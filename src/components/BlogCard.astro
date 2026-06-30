@@ -1,0 +1,50 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  pubDate: Date;
+  category: string;
+  featured?: boolean;
+}
+
+const { title, description, slug, pubDate, category, featured = false } = Astro.props;
+const dateStr = pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const categoryColors: Record<string, string> = {
+  plumbing: 'bg-azure/10 text-azure',
+  electrical: 'bg-amber/10 text-amber-dark',
+  interior: 'bg-purple-100 text-purple-700',
+  pop: 'bg-green-100 text-green-700',
+  general: 'bg-slate-100 text-slate-600',
+};
+const catColor = categoryColors[category] ?? 'bg-slate-100 text-slate-600';
+---
+
+<a
+  href={`/blog/${slug}`}
+  class={`group block rounded-2xl border border-slate-200 hover:border-azure/40 bg-white hover:shadow-xl hover:shadow-azure/10 transition-all duration-300 ${featured ? 'lg:col-span-2' : ''}`}
+>
+  <!-- Placeholder image area -->
+  <div class="h-44 bg-gradient-to-br from-sky-light to-azure/20 rounded-t-2xl flex items-center justify-center">
+    <svg class="w-16 h-16 text-azure/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+    </svg>
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-2 mb-3">
+      <span class={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${catColor}`}>{category}</span>
+      <span class="text-xs text-slate-400">{dateStr}</span>
+    </div>
+    <h3 class="font-heading font-bold text-navy text-lg mb-2 leading-snug group-hover:text-azure transition-colors">
+      {title}
+    </h3>
+    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">{description}</p>
+    <div class="flex items-center gap-1 mt-4 text-azure text-sm font-semibold">
+      <span>Read article</span>
+      <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,74 @@
+{
+  "name": "PS Tech (Problem Solver Tech)",
+  "shortName": "PS Tech",
+  "phone": "+91 91199 43168",
+  "phoneRaw": "+919119943168",
+  "whatsapp": "919119943168",
+  "whatsappMessage": "Hi%20PS%20Tech%2C%20I%20need%20help%20with%20plumbing%20in%20Indore.",
+  "address": {
+    "full": "Problem Solver Tech, near Ram Mandir, Kabit Khedi, Indore, Madhya Pradesh 452010",
+    "street": "near Ram Mandir, Kabit Khedi",
+    "city": "Indore",
+    "region": "Madhya Pradesh",
+    "postalCode": "452010",
+    "country": "IN",
+    "countryName": "India"
+  },
+  "rating": "4.9",
+  "reviewCount": "78",
+  "openingHours": "Mo-Su 08:00-21:00",
+  "openingHoursDisplay": "Mon–Sun, 8 AM – 9 PM",
+  "priceRange": "₹₹",
+  "gbpId": "GBP_CID_OR_SHARE_LINK",
+  "gbpReviewUrl": "GBP_REVIEW_URL",
+  "domain": "FINAL_DOMAIN",
+  "heroImageUrl": "URL_TO_HERO_IMAGE",
+  "geoLat": "LAT",
+  "geoLong": "LONG",
+  "email": "contact@pstech.in",
+  "socialFacebook": "",
+  "socialInstagram": "",
+  "socialYoutube": "",
+  "yearsInService": 5,
+  "responseTime": "2-hour",
+  "serviceAreas": [
+    "Vijay Nagar",
+    "Nipania",
+    "Mahalaxmi Nagar",
+    "Khajrana",
+    "Palasia",
+    "Bhawarkuan"
+  ],
+  "reviews": [
+    {
+      "author": "Rajesh Verma",
+      "rating": 5,
+      "date": "2024-03-10",
+      "text": "Called PS Tech for a major pipe burst at 10 PM and they arrived within 90 minutes. Excellent emergency service. Fixed everything neatly with no mess left behind. Highly recommend!"
+    },
+    {
+      "author": "Priya Sharma",
+      "rating": 5,
+      "date": "2024-02-18",
+      "text": "Got my geyser repaired and a new tap installed the same day. The technician was polite, wore shoe covers, and explained what was wrong clearly. Transparent pricing — no hidden charges."
+    },
+    {
+      "author": "Anil Patidar",
+      "rating": 5,
+      "date": "2024-01-22",
+      "text": "PS Tech did the complete interior plumbing for my new flat in Vijay Nagar. Very professional team. On time, clean work. Will definitely hire again for any home service."
+    },
+    {
+      "author": "Sunita Joshi",
+      "rating": 5,
+      "date": "2023-12-05",
+      "text": "Had a stubborn drain clog that two other plumbers couldn't fix. PS Tech solved it in under an hour and also checked all other drains for free. Great attitude and expertise."
+    },
+    {
+      "author": "Mahesh Dubey",
+      "rating": 4,
+      "date": "2023-11-14",
+      "text": "Booked them for a sump pump installation before monsoon. They advised the right pump size for my basement and completed the job cleanly. Very satisfied with the monsoon-readiness now."
+    }
+  ]
+}

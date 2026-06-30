@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import { areas } from '../../data/areas.js';
+import business from '../../data/business.json';
+
+const area = areas.find((a) => a.id === 'vijay-nagar')!;
+const title = `Plumber in Vijay Nagar Indore | PS Tech – Same-Day Plumbing Service`;
+const description = `Expert plumber in Vijay Nagar, Indore — geyser repair, pipe leaks, drain cleaning, water tank. Hard-water specialists. Call PS Tech: ${business.phone}.`;
+---
+
+<BaseLayout title={title} description={description} canonical="/service-areas/vijay-nagar">
+  <div class="bg-gradient-to-br from-navy to-azure/80 py-14 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Service Areas', href: '/service-areas' }, { label: area.name }]} />
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl text-white mt-5 mb-3">
+        Plumber in Vijay Nagar, Indore
+      </h1>
+      <p class="text-sky-light/80 text-xl max-w-2xl">
+        Hard-water specialists for Vijay Nagar's high-rise societies. Geyser descaling, pipe maintenance, sump pump installation & emergency leak repair.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-6">
+        <a href={`tel:${business.phoneRaw}`} class="bg-amber hover:bg-amber-dark text-navy font-heading font-bold px-7 py-3.5 rounded-xl transition-colors">
+          Call {business.phone}
+        </a>
+        <a href={`https://wa.me/${business.whatsapp}?text=Hi%20PS%20Tech%2C%20I%20need%20a%20plumber%20in%20Vijay%20Nagar%20Indore.`}
+           target="_blank" rel="noopener noreferrer"
+           class="bg-green-600 text-white font-heading font-bold px-7 py-3.5 rounded-xl transition-colors hover:bg-green-700">
+          WhatsApp for Vijay Nagar
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <article class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto prose prose-slate prose-lg">
+    <h2>Plumbing in Vijay Nagar — What We Know About This Area</h2>
+    <p>{area.description}</p>
+
+    <h2>Our Services in Vijay Nagar</h2>
+    <p>
+      PS Tech is a regular service provider in Vijay Nagar's major societies along AB Bypass, Scheme 78, and LIG Colony. Our most requested services here include:
+    </p>
+    <ul>
+      {area.commonIssues.map((issue) => <li>{issue}</li>)}
+    </ul>
+
+    <h2>Geyser Repair in Vijay Nagar</h2>
+    <p>
+      Vijay Nagar's hard borewell water (typically 400–800 mg/L TDS) deposits limescale rapidly inside water heaters. If your geyser takes longer to heat, trips the MCB, or leaks from the pressure relief valve — call us. We offer descaling, anode rod replacement, thermostat repair, and full geyser replacement for all major brands (Racold, Bajaj, Havells, Venus, AO Smith).
+    </p>
+    <p>
+      Booking a plumber in Vijay Nagar is easy — <a href="/contact">fill out our contact form</a> or call directly. We aim for a 2-hour response within Vijay Nagar.
+    </p>
+    <p>
+      For more tips on hard-water damage to your plumbing, read our guide: <a href="/blog/hard-water-indore">Hard Water in Indore: How It Damages Your Pipes, Taps & Geyser</a>.
+    </p>
+  </article>
+
+  <CTABand headline="Plumber in Vijay Nagar — call PS Tech for same-day service." />
+</BaseLayout>

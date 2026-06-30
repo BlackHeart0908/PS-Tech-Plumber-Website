@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const title = 'Plumbing Tips & Home Services Blog | PS Tech Indore';
+const description =
+  'Expert plumbing tips, geyser repair guides, drain cleaning advice, and home improvement articles from PS Tech — Indore\'s top-rated plumber and home services team.';
+---
+
+<BaseLayout title={title} description={description} canonical="/blog">
+  <div class="bg-sky-light py-14 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Blog' }]} />
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl text-navy mt-5 mb-3">
+        Plumbing Tips & Home Service Guides
+      </h1>
+      <p class="text-slate-600 text-xl max-w-2xl">
+        Practical advice from Indore's most trusted plumbers — saving you money and preventing problems before they start.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((post, i) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            slug={post.slug}
+            pubDate={post.data.pubDate}
+            category={post.data.category}
+            featured={i === 0}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

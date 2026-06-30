@@ -1,0 +1,206 @@
+---
+import business from '../data/business.json';
+---
+
+<section class="relative min-h-[92vh] flex items-center overflow-hidden bg-navy" id="hero-section">
+  <!-- Three.js canvas — 3D water/pipe scene -->
+  <canvas
+    id="hero-canvas"
+    class="absolute inset-0 w-full h-full opacity-60"
+    aria-hidden="true"
+  ></canvas>
+
+  <!-- Gradient overlay for readability -->
+  <div class="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent pointer-events-none"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="max-w-2xl">
+
+      <!-- Rating badge -->
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6 hero-fade-in" style="animation-delay: 0.1s">
+        <span class="text-amber font-bold text-sm">{business.rating}★</span>
+        <span class="text-sky-light/80 text-sm">{business.reviewCount} Google reviews · Indore's top-rated</span>
+      </div>
+
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl text-white leading-tight mb-5 hero-fade-in" style="animation-delay: 0.2s">
+        Indore's Most<br />
+        <span class="text-azure">Trusted Plumbers</span><br />
+        <span class="text-sky-light/80 text-3xl sm:text-4xl font-medium">& Home Services</span>
+      </h1>
+
+      <p class="text-sky-light/80 text-lg sm:text-xl mb-8 leading-relaxed hero-fade-in" style="animation-delay: 0.35s">
+        Plumbing · Electrical · Interior Design · POP Work<br />
+        <strong class="text-white">{business.responseTime} response</strong> · Same-day service · {business.openingHoursDisplay}
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-12 hero-fade-in" style="animation-delay: 0.5s">
+        <a
+          href={`tel:${business.phoneRaw}`}
+          class="flex items-center justify-center gap-3 bg-amber hover:bg-amber-dark text-navy font-heading font-bold text-lg px-8 py-4 rounded-2xl transition-all shadow-2xl hover:scale-105 active:scale-95"
+          data-track="hero-call"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          Call Now · {business.phone}
+        </a>
+        <a
+          href="/contact"
+          class="flex items-center justify-center gap-2 border-2 border-white/30 text-white hover:bg-white/10 font-heading font-bold text-lg px-8 py-4 rounded-2xl transition-all"
+          data-track="hero-book"
+        >
+          Book a Service
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-4 hero-fade-in" style="animation-delay: 0.65s">
+        {[
+          { value: `${business.rating}★`, label: 'Google Rating' },
+          { value: `${business.reviewCount}+`, label: 'Happy Customers' },
+          { value: `${business.responseTime}`, label: 'Response Time' },
+        ].map(({ value, label }) => (
+          <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 text-center">
+            <p class="font-heading font-bold text-2xl text-white stat-counter" data-value={value}>{value}</p>
+            <p class="text-sky-light/70 text-xs mt-1">{label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 animate-bounce" aria-hidden="true">
+    <span class="text-xs">Scroll</span>
+    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero-fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: heroFadeUp 0.7s ease forwards;
+  }
+  @keyframes heroFadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade-in { animation: none; opacity: 1; transform: none; }
+    #hero-canvas { display: none; }
+  }
+</style>
+
+<script>
+  // Three.js particle / water-drop hero — lightweight floating spheres simulating water
+  // Deferred until after page load so it doesn't block LCP
+  window.addEventListener('load', async () => {
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      canvas.style.display = 'none';
+      return;
+    }
+
+    try {
+      const THREE = await import('three');
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      camera.position.z = 5;
+
+      // Ambient + directional light
+      scene.add(new THREE.AmbientLight(0x4488ff, 0.8));
+      const dirLight = new THREE.DirectionalLight(0x88ccff, 1.5);
+      dirLight.position.set(5, 5, 5);
+      scene.add(dirLight);
+
+      // Water-drop spheres
+      const dropGeo = new THREE.SphereGeometry(0.12, 12, 8);
+      const dropMat = new THREE.MeshPhongMaterial({
+        color: 0x2E8BFF,
+        emissive: 0x1E6FD9,
+        emissiveIntensity: 0.3,
+        transparent: true,
+        opacity: 0.85,
+        shininess: 120,
+      });
+
+      const drops: { mesh: THREE.Mesh; vx: number; vy: number; vz: number; phase: number }[] = [];
+      const COUNT = window.innerWidth < 768 ? 30 : 60;
+
+      for (let i = 0; i < COUNT; i++) {
+        const mesh = new THREE.Mesh(dropGeo, dropMat);
+        mesh.position.set(
+          (Math.random() - 0.5) * 14,
+          (Math.random() - 0.5) * 8,
+          (Math.random() - 0.5) * 4
+        );
+        const s = 0.4 + Math.random() * 0.8;
+        mesh.scale.setScalar(s);
+        scene.add(mesh);
+        drops.push({
+          mesh,
+          vx: (Math.random() - 0.5) * 0.003,
+          vy: (Math.random() - 0.5) * 0.004,
+          vz: (Math.random() - 0.5) * 0.002,
+          phase: Math.random() * Math.PI * 2,
+        });
+      }
+
+      // Pipe-like cylinder
+      const pipeGeo = new THREE.CylinderGeometry(0.08, 0.08, 6, 10);
+      const pipeMat = new THREE.MeshPhongMaterial({ color: 0x0B2545, shininess: 80 });
+      const pipe = new THREE.Mesh(pipeGeo, pipeMat);
+      pipe.position.set(3, 0, -1);
+      pipe.rotation.z = Math.PI / 4;
+      scene.add(pipe);
+
+      let frame = 0;
+      function animate() {
+        frame++;
+        const t = frame * 0.01;
+
+        drops.forEach((d) => {
+          d.mesh.position.x += d.vx;
+          d.mesh.position.y += d.vy + Math.sin(t + d.phase) * 0.001;
+          d.mesh.position.z += d.vz;
+          d.mesh.rotation.y += 0.005;
+
+          // Wrap around
+          if (Math.abs(d.mesh.position.x) > 7) d.vx *= -1;
+          if (Math.abs(d.mesh.position.y) > 5) d.vy *= -1;
+          if (Math.abs(d.mesh.position.z) > 3) d.vz *= -1;
+        });
+
+        pipe.rotation.y = t * 0.2;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // Resize handler
+      const ro = new ResizeObserver(() => {
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+      ro.observe(canvas);
+
+    } catch (err) {
+      // Three.js failed (e.g. no WebGL) — hide canvas gracefully
+      if (canvas) canvas.style.display = 'none';
+    }
+  });
+</script>

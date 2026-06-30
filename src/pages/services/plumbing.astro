@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import { services } from '../../data/services.js';
+import business from '../../data/business.json';
+
+const svc = services.find((s) => s.id === 'plumbing')!;
+
+const title = 'Plumber in Indore | Plumbing Services – PS Tech (Problem Solver Tech)';
+const description =
+  'Expert plumbing services in Indore — leak repair, geyser installation, drain cleaning, water tank, sump pump & more. Same-day response. Call PS Tech: +91 91199 43168.';
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  'name': 'Plumbing Services in Indore',
+  'provider': { '@type': 'LocalBusiness', 'name': business.name },
+  'areaServed': { '@type': 'City', 'name': 'Indore' },
+  'serviceType': 'Plumbing',
+  'description': description,
+};
+---
+
+<BaseLayout title={title} description={description} canonical="/services/plumbing" schema={pageSchema}>
+  <!-- Hero -->
+  <div class="bg-gradient-to-br from-navy to-azure py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Services', href: '/services' }, { label: 'Plumbing' }]} />
+      <div class="mt-6 max-w-3xl">
+        <div class="text-5xl mb-4">🔧</div>
+        <h1 class="font-heading font-bold text-4xl sm:text-5xl text-white mb-4">
+          Plumbing Services in Indore
+        </h1>
+        <p class="text-sky-light/80 text-xl mb-6">
+          PS Tech is Indore's most trusted plumber — 4.9★ across 78 Google reviews. We handle everything from emergency leak repair to full bathroom plumbing installations, with same-day service across all major Indore localities.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href={`tel:${business.phoneRaw}`}
+            class="bg-amber hover:bg-amber-dark text-navy font-heading font-bold px-7 py-3.5 rounded-xl transition-colors"
+            data-track="plumbing-cta-call"
+          >
+            Call {business.phone}
+          </a>
+          <a
+            href="/contact"
+            class="border-2 border-white/30 text-white hover:bg-white/10 font-semibold px-7 py-3.5 rounded-xl transition-colors"
+          >
+            Book Online
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Intro copy -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto prose prose-slate prose-lg">
+    <h2>Why Indore Homes Need a Reliable Plumber</h2>
+    <p>
+      Indore's hard borewell water is notorious for accelerating limescale buildup in geysers, taps, and pipes. Add in monsoon waterlogging, aging GI pipework in older colonies like Mahalaxmi Nagar, and the rapid growth of high-rise societies in Vijay Nagar and Nipania — and you have a city with constant, varied plumbing demand. PS Tech has the tools, training, and local knowledge to handle all of it.
+    </p>
+    <p>
+      Whether you're dealing with a burst pipe at midnight, a geyser that stopped heating in winter, or a bathroom renovation that needs professional rough plumbing — we bring the same professionalism and transparent pricing to every job.
+    </p>
+  </section>
+
+  <!-- Service groups -->
+  <section class="pb-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading font-bold text-3xl text-navy text-center mb-12" data-reveal>
+        Complete Plumbing Services in Indore
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {svc.groups.map((group) => (
+          <div class="bg-sky-light rounded-2xl p-7 border border-azure/10" data-reveal>
+            <h3 class="font-heading font-bold text-navy text-xl mb-5 pb-3 border-b border-azure/20">
+              {group.name}
+            </h3>
+            <ul class="space-y-3">
+              {group.items.map((item) => (
+                <li class="flex items-center gap-3 text-slate-700 text-sm">
+                  <svg class="w-4 h-4 text-azure shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Local signals -->
+  <section class="bg-sky-light py-16 px-4 sm:px-6 lg:px-8" data-reveal>
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading font-bold text-3xl text-navy text-center mb-10">
+        Emergency Plumbing in Indore — Fast Response Guaranteed
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {[
+          { t: 'Leak Detection in Indore', d: 'Using pressure testing and acoustic detection tools, we find hidden leaks behind walls and under floors without unnecessary demolition.' },
+          { t: 'Geyser Repair & Installation', d: 'Certified for all major geyser brands (Racold, Bajaj, Havells, Venus). Hard-water descaling service also available for Indore\'s high-TDS water.' },
+          { t: 'Drain & Sewer Cleaning', d: 'High-pressure jetting and manual roding for blocked drains, sewer lines, and manholes. Serving older colonies in Khajrana, Mahalaxmi Nagar, and beyond.' },
+        ].map(({ t, d }) => (
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+            <h3 class="font-heading font-bold text-navy mb-3">{t}</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Internal links to service areas -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-navy font-semibold mb-4">Plumbing services available in:</p>
+      <div class="flex flex-wrap gap-2 justify-center">
+        {business.serviceAreas.map((area) => (
+          <a
+            href={`/service-areas/${area.toLowerCase().replace(/\s+/g, '-')}`}
+            class="px-4 py-2 bg-sky-light text-navy text-sm rounded-full hover:bg-azure hover:text-white transition-colors"
+          >
+            Plumber in {area}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand headline="Need a plumber in Indore today? We'll be there in 2 hours." />
+</BaseLayout>

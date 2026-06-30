@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CareersForm from '../components/CareersForm.astro';
+import CTABand from '../components/CTABand.astro';
+
+const title = 'Careers at PS Tech Indore | Plumber & Electrician Jobs';
+const description =
+  'Join PS Tech — Indore\'s top-rated home services team. Open roles for plumbers, electricians, helpers, and supervisors. Apply online.';
+
+const openRoles = [
+  {
+    title: 'Experienced Plumber',
+    type: 'Full-time',
+    location: 'Indore (field)',
+    requirements: ['3+ years plumbing experience', 'Knowledge of CPVC/UPVC pipe work', 'Geyser installation & repair', 'Drain jetting preferred'],
+    perks: ['Competitive daily rate', 'Tool kit provided', 'Steady work across Indore societies'],
+  },
+  {
+    title: 'Plumber\'s Helper / Apprentice',
+    type: 'Full-time',
+    location: 'Indore (field)',
+    requirements: ['Willing to learn — no experience required', 'Physical fitness for site work', 'Punctual and reliable'],
+    perks: ['Paid on-the-job training', 'Opportunity to become a certified plumber', 'Mentored by experienced team'],
+  },
+  {
+    title: 'Electrician',
+    type: 'Full-time',
+    location: 'Indore (field)',
+    requirements: ['ITI Wireman/Electrician certificate preferred', '2+ years electrical work', 'Knowledge of MCB panels and earthing'],
+    perks: ['Competitive rates', 'Regular residential & commercial work', 'Safety gear provided'],
+  },
+  {
+    title: 'POP / False Ceiling Worker',
+    type: 'Contract / Full-time',
+    location: 'Indore',
+    requirements: ['Experience with POP or gypsum board work', 'Steady hands for finishing work', 'Can read basic drawings preferred'],
+    perks: ['Project-based high earnings', 'Flexible work schedule', 'Growing demand in Indore'],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonical="/careers">
+  <div class="bg-gradient-to-br from-navy to-azure/70 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Careers' }]} />
+      <div class="mt-6 max-w-2xl">
+        <h1 class="font-heading font-bold text-4xl sm:text-5xl text-white mb-4">
+          Join PS Tech — Indore's Growing Home Services Team
+        </h1>
+        <p class="text-sky-light/80 text-xl">
+          We're always looking for skilled, reliable, and customer-first tradespeople across plumbing, electrical, interior, and POP work. Steady income, respectful workplace, and real opportunities to grow.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Open roles -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading font-bold text-3xl text-navy mb-10 text-center" data-reveal>Open Positions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {openRoles.map((role) => (
+          <div class="bg-sky-light rounded-2xl p-7 border border-azure/10" data-reveal>
+            <div class="flex items-start justify-between mb-4">
+              <h3 class="font-heading font-bold text-navy text-xl">{role.title}</h3>
+              <div class="text-right">
+                <span class="inline-block bg-azure/10 text-azure text-xs font-medium px-2.5 py-1 rounded-full">{role.type}</span>
+                <p class="text-xs text-slate-500 mt-1">{role.location}</p>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="text-sm font-semibold text-navy mb-2">Requirements:</p>
+              <ul class="space-y-1">
+                {role.requirements.map((r) => (
+                  <li class="flex items-center gap-2 text-sm text-slate-600">
+                    <svg class="w-3.5 h-3.5 text-azure shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    {r}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-navy mb-2">What we offer:</p>
+              <ul class="space-y-1">
+                {role.perks.map((p) => (
+                  <li class="flex items-center gap-2 text-sm text-slate-600">
+                    <span class="text-green-500">✓</span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Application form -->
+  <section class="pb-20 px-4 sm:px-6 lg:px-8 bg-sky-light py-16">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="font-heading font-bold text-3xl text-navy mb-3 text-center" data-reveal>Apply Now</h2>
+      <p class="text-slate-600 text-center mb-8">
+        Fill in the form below and our team will be in touch within 2 working days. Alternatively, WhatsApp your details to <a href="https://wa.me/919119943168" class="text-azure font-medium">+91 91199 43168</a>.
+      </p>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+        <CareersForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

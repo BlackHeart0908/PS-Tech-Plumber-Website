@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<!-- INSERT TARGETED GBP IFRAME HERE -->
+<!-- Replace the placeholder div below with the real Google Maps embed
+     from the PS Tech Google Business Profile share link.
+     Example: <iframe src="https://www.google.com/maps/embed?pb=..." ...></iframe>
+     Make sure to add loading="lazy" and a title attribute for accessibility. -->
+<div
+  class={`bg-navy/60 flex items-center justify-center text-sky-light/50 text-xs text-center p-4 ${className}`}
+  role="img"
+  aria-label="Map placeholder — Google Business Profile embed to be inserted here"
+>
+  <div>
+    <svg class="w-8 h-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+    </svg>
+    <p>Map embed<br/><span class="opacity-70">Insert GBP iframe</span></p>
+  </div>
+</div>

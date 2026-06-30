@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import { areas } from '../../data/areas.js';
+import business from '../../data/business.json';
+
+const area = areas.find((a) => a.id === 'nipania')!;
+const title = `Plumber in Nipania Indore | New-Build & Society Plumbing – PS Tech`;
+const description = `Expert plumber in Nipania, Indore — new-build commissioning, sump pump installation, society plumbing. Call PS Tech: ${business.phone}.`;
+---
+
+<BaseLayout title={title} description={description} canonical="/service-areas/nipania">
+  <div class="bg-gradient-to-br from-navy to-azure/80 py-14 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Service Areas', href: '/service-areas' }, { label: area.name }]} />
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl text-white mt-5 mb-3">
+        Plumber in Nipania, Indore
+      </h1>
+      <p class="text-sky-light/80 text-xl max-w-2xl">
+        New-build plumbing commissioning, sump pump installation before monsoon, and full home plumbing services across Nipania's townships and gated societies.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-6">
+        <a href={`tel:${business.phoneRaw}`} class="bg-amber hover:bg-amber-dark text-navy font-heading font-bold px-7 py-3.5 rounded-xl transition-colors">
+          Call {business.phone}
+        </a>
+        <a href={`https://wa.me/${business.whatsapp}?text=Hi%20PS%20Tech%2C%20I%20need%20a%20plumber%20in%20Nipania%20Indore.`}
+           target="_blank" rel="noopener noreferrer"
+           class="bg-green-600 text-white font-heading font-bold px-7 py-3.5 rounded-xl transition-colors hover:bg-green-700">
+          WhatsApp for Nipania
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <article class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto prose prose-slate prose-lg">
+    <h2>Plumbing in Nipania — What We Know About This Area</h2>
+    <p>{area.description}</p>
+
+    <h2>New Flat or House in Nipania? We Handle the Plumbing</h2>
+    <p>
+      Moving into a new property in Nipania involves commissioning all the plumbing: installing taps, geysers, water purifiers, overhead tanks, and checking all rough plumbing for leaks. PS Tech works directly with builders and individual homeowners for complete new-build plumbing in Nipania.
+    </p>
+    <ul>
+      {area.commonIssues.map((issue) => <li>{issue}</li>)}
+    </ul>
+
+    <h2>Sump Pump Installation in Nipania Before Monsoon</h2>
+    <p>
+      Basement parking areas in Nipania's gated societies routinely flood during Indore's July–August monsoon. A properly sized submersible sump pump with an automatic float switch is the reliable fix. We'll assess your basement dimensions, calculate the required pump capacity, and complete the installation — so you're protected before the first rain. See also: <a href="/blog/sump-pump-monsoon-indore">Sump Pumps & Monsoon Waterlogging: Protecting Your Indore Home</a>.
+    </p>
+    <p>
+      <a href="/contact">Contact us</a> or call to book a plumber in Nipania. Same-day service available.
+    </p>
+  </article>
+
+  <CTABand headline="Plumber in Nipania — new-build to emergency, we handle it all." />
+</BaseLayout>

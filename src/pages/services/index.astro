@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import { services } from '../../data/services.js';
+
+const title = 'Home Services in Indore | Plumbing, Electrical, Interior & POP — PS Tech';
+const description =
+  'PS Tech offers expert plumbing, electrical, interior design, and POP false ceiling services in Indore. Licensed technicians, same-day service, transparent pricing.';
+---
+
+<BaseLayout title={title} description={description} canonical="/services">
+  <div class="bg-sky-light py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Services' }]} />
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl text-navy mt-4 mb-3">
+        Our Services in Indore
+      </h1>
+      <p class="text-slate-600 text-xl max-w-2xl">
+        Four specialist service lines. One trusted team. Available across all major areas of Indore.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {services.map((svc, i) => (
+          <a
+            href={svc.slug}
+            class="group block rounded-3xl border border-slate-200 hover:border-azure/40 bg-white hover:shadow-2xl hover:shadow-azure/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+          >
+            <div class={`h-3 ${i === 0 ? 'bg-azure' : i === 1 ? 'bg-amber' : i === 2 ? 'bg-navy' : 'bg-sky'}`}></div>
+            <div class="p-8">
+              <div class="text-5xl mb-5">{svc.icon}</div>
+              <h2 class="font-heading font-bold text-2xl text-navy mb-2 group-hover:text-azure transition-colors">
+                {svc.title}
+              </h2>
+              <p class="text-azure font-medium text-sm mb-4">{svc.tagline}</p>
+              <p class="text-slate-600 mb-6">{svc.shortDesc}</p>
+              <ul class="space-y-1.5 mb-6">
+                {svc.groups[0].items.slice(0, 5).map((item) => (
+                  <li class="flex items-center gap-2 text-sm text-slate-700">
+                    <svg class="w-4 h-4 text-azure shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+                <li class="text-sm text-azure font-medium">+ more →</li>
+              </ul>
+              <span class="inline-flex items-center gap-2 bg-navy text-white font-heading font-bold px-6 py-3 rounded-xl text-sm group-hover:bg-azure transition-colors">
+                View {svc.title}
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand headline="Need a service in Indore? Call us — we'll be there today." />
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: string;
+  tagline: string;
+  icon: string;
+  shortDesc: string;
+  slug: string;
+  featured?: boolean;
+}
+
+const { title, tagline, icon, shortDesc, slug, featured = false } = Astro.props;
+---
+
+<a
+  href={slug}
+  class={`group block rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-azure/20 ${
+    featured
+      ? 'bg-gradient-to-br from-azure to-sky border-azure/30 text-white'
+      : 'bg-white border-slate-200 hover:border-azure/40 text-navy'
+  }`}
+>
+  <div class="p-7">
+    <div class={`text-4xl mb-4`}>{icon}</div>
+    <h3 class={`font-heading font-bold text-xl mb-1 group-hover:text-azure transition-colors ${featured ? 'text-white group-hover:text-white' : ''}`}>
+      {title}
+    </h3>
+    <p class={`text-sm font-medium mb-3 ${featured ? 'text-white/70' : 'text-azure'}`}>{tagline}</p>
+    <p class={`text-sm leading-relaxed ${featured ? 'text-white/80' : 'text-slate-600'}`}>{shortDesc}</p>
+    <div class={`flex items-center gap-1 mt-5 text-sm font-semibold ${featured ? 'text-white' : 'text-azure'}`}>
+      <span>Learn more</span>
+      <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </div>
+</a>

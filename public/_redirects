@@ -1,0 +1,8 @@
+# Cloudflare Pages redirect rules
+# Format: /old-path  /new-path  301
+
+# API routes handled by Pages Functions (functions/ directory)
+# No redirects needed — Cloudflare Pages auto-routes /api/* to functions/api/*
+
+# Catch-all for 404
+/*  /404  404

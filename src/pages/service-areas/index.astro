@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABand from '../../components/CTABand.astro';
+import { areas } from '../../data/areas.js';
+import business from '../../data/business.json';
+
+const title = 'Plumber Service Areas Indore | Vijay Nagar, Nipania, Palasia & More – PS Tech';
+const description =
+  'PS Tech provides plumbing, electrical & home services across all major Indore areas — Vijay Nagar, Nipania, Mahalaxmi Nagar, Khajrana, Palasia, Bhawarkuan and all of Indore.';
+---
+
+<BaseLayout title={title} description={description} canonical="/service-areas">
+  <div class="bg-sky-light py-14 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <Breadcrumb crumbs={[{ label: 'Service Areas' }]} />
+      <h1 class="font-heading font-bold text-4xl sm:text-5xl text-navy mt-5 mb-4">
+        Plumbing & Home Services Across Indore
+      </h1>
+      <p class="text-slate-600 text-xl max-w-3xl">
+        PS Tech serves all major localities in Indore — from busy commercial hubs to quiet residential colonies. Local knowledge, fast response, same trusted team.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto space-y-16">
+      {areas.map((area, i) => (
+        <div
+          id={area.id}
+          class={`grid grid-cols-1 lg:grid-cols-2 gap-10 items-start ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+          data-reveal
+        >
+          <div>
+            <h2 class="font-heading font-bold text-2xl sm:text-3xl text-navy mb-3">
+              Plumber in {area.name}, Indore
+            </h2>
+            <p class="text-slate-600 leading-relaxed mb-6">{area.description}</p>
+            <h3 class="font-heading font-semibold text-navy mb-3">Common issues in {area.name}:</h3>
+            <ul class="space-y-2 mb-6">
+              {area.commonIssues.map((issue) => (
+                <li class="flex items-center gap-3 text-sm text-slate-700">
+                  <svg class="w-4 h-4 text-azure shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {issue}
+                </li>
+              ))}
+            </ul>
+            <div class="flex flex-wrap gap-3">
+              <a
+                href={area.slug}
+                class="inline-flex items-center gap-2 bg-azure text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-sky transition-colors"
+              >
+                Plumber in {area.name} →
+              </a>
+              <a
+                href={`tel:${business.phoneRaw}`}
+                class="inline-flex items-center gap-2 border border-azure text-azure font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-azure hover:text-white transition-colors"
+              >
+                Call for {area.name}
+              </a>
+            </div>
+          </div>
+          <div class="bg-sky-light rounded-2xl p-6 border border-azure/10">
+            <h3 class="font-heading font-semibold text-navy mb-4">Areas within {area.name}:</h3>
+            <div class="flex flex-wrap gap-2">
+              {area.localities.map((loc) => (
+                <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-full text-xs">{loc}</span>
+              ))}
+            </div>
+            <div class="mt-6 pt-5 border-t border-azure/10">
+              <p class="text-sm text-slate-600">All services available in {area.name}:</p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                {['Plumbing', 'Geyser Repair', 'Drain Cleaning', 'Electrical', 'Interior', 'POP Ceiling'].map((s) => (
+                  <span class="px-3 py-1 bg-azure/10 text-azure text-xs font-medium rounded-full">{s}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CTABand headline="Need a plumber anywhere in Indore? One call covers it all." />
+</BaseLayout>
