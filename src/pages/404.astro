@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABand from '../components/CTABand.astro';
+import business from '../data/business.json';
+---
+
+<BaseLayout
+  title="Page Not Found | PS Tech Indore"
+  description="The page you're looking for doesn't exist. Find our plumbing and home services in Indore."
+  noindex={true}
+>
+  <section class="min-h-[70vh] flex items-center justify-center px-4 py-20">
+    <div class="text-center max-w-lg">
+      <div class="text-8xl font-heading font-bold text-sky-light/20 mb-4">404</div>
+      <h1 class="font-heading font-bold text-3xl text-navy mb-3">Page Not Found</h1>
+      <p class="text-slate-600 mb-8">
+        The page you're looking for doesn't exist. Try one of the links below, or call us directly.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+        <a href="/" class="bg-azure hover:bg-sky text-white font-heading font-bold px-7 py-3.5 rounded-xl transition-colors">
+          Go to Home
+        </a>
+        <a href={`tel:${business.phoneRaw}`} class="bg-amber hover:bg-amber-dark text-navy font-heading font-bold px-7 py-3.5 rounded-xl transition-colors">
+          Call {business.phone}
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center text-sm">
+        {[
+          { href: '/services/plumbing', label: 'Plumbing Services' },
+          { href: '/services/electrical', label: 'Electrical' },
+          { href: '/service-areas', label: 'Service Areas' },
+          { href: '/contact', label: 'Contact Us' },
+          { href: '/blog', label: 'Blog' },
+        ].map(({ href, label }) => (
+          <a href={href} class="text-azure hover:underline">{label}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
