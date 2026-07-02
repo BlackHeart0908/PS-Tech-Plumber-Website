@@ -1,12 +1,10 @@
 ---
-// Form posts to Cloudflare Pages Function at /api/contact
-// Honeypot field (_hp) catches bots without CAPTCHA friction
+import business from '../data/business.json';
+// Contact form now opens WhatsApp with a prefilled message instead of emailing.
 ---
 
 <form
   id="contact-form"
-  action="/api/contact"
-  method="POST"
   class="space-y-5"
   novalidate
 >
@@ -76,7 +74,7 @@
     class="w-full bg-azure hover:bg-sky text-white font-heading font-bold py-4 rounded-xl transition-colors text-base"
     data-track="contact-form-submit"
   >
-    Send Message — We'll Call Back
+    Send Message — We'll WhatsApp You
   </button>
 
   <p class="text-xs text-slate-400 text-center">We respond within 30 minutes during business hours.</p>
@@ -91,32 +89,30 @@
 </form>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const WHATSAPP_NUMBER = "{business.whatsapp}";
+  const form = document.getElementById('contact-form');
   const success = document.getElementById('cf-success');
   const error = document.getElementById('cf-error');
 
-  form?.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = new FormData(form);
-
-    // Client-side honeypot check
+    const f = /** @type {HTMLFormElement} */ (form);
+    const data = new FormData(f);
     if (data.get('_hp')) return;
 
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        body: data,
-      });
-      if (res.ok) {
-        form.reset();
-        success?.classList.remove('hidden');
-        error?.classList.add('hidden');
-      } else {
-        error?.classList.remove('hidden');
-        success?.classList.add('hidden');
-      }
-    } catch {
+    const name = String(data.get('name') || '').trim();
+    const phone = String(data.get('phone') || '').trim();
+    const service = String(data.get('service') || '').trim();
+    const message = String(data.get('message') || '').trim();
+
+    if (!name || !phone) {
       error?.classList.remove('hidden');
+      return;
     }
+
+    const messageText = `Hi PS Tech,\nName: ${name}\nPhone: ${phone}\nService: ${service}\nMessage: ${message}`;
+    const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(messageText)}`;
+    window.open(url, '_blank');
+    try { f.reset(); success?.classList.remove('hidden'); } catch(e){}
   });
 </script>

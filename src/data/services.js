@@ -5,6 +5,7 @@ export const services = [
     title: 'Plumbing Services',
     tagline: "Indore's Most Trusted Plumbers",
     icon: '🔧',
+    image: '/images/plumbing/unnamed.jpg',
     color: 'azure',
     shortDesc: 'From emergency leaks to full pipe installations — same-day service across Indore.',
     groups: [
@@ -54,6 +55,7 @@ export const services = [
     title: 'Electrical Services',
     tagline: 'Safe, Certified Electrical Work',
     icon: '⚡',
+    image: '/images/electrical/unnamed.jpg',
     color: 'amber',
     shortDesc: 'Licensed electricians for wiring, fittings, panel work and safety inspections.',
     groups: [
@@ -87,6 +89,7 @@ export const services = [
     title: 'Interior Design',
     tagline: 'Transform Your Space',
     icon: '🏠',
+    image: '/images/interior/WhatsApp%20Image%202026-06-28%20at%202.56.00%20PM.jpeg',
     color: 'navy',
     shortDesc: 'End-to-end interior work — design, material selection, and skilled execution in Indore.',
     groups: [
@@ -118,7 +121,7 @@ export const services = [
     slug: '/services/pop-work',
     title: 'POP & False Ceiling',
     tagline: 'Expert POP Work & Ceiling Design',
-    icon: '🏗️',
+    image: '/images/pop-ceiling.jfif',
     color: 'sky',
     shortDesc: 'POP false ceiling, gypsum board, cornice, and decorative plaster work across Indore.',
     groups: [

@@ -1,5 +1,6 @@
 ---
-import { galleryItems, categories } from '../data/gallery.js';
+import fs from 'fs';
+import path from 'path';
 
 interface Props {
   filter?: string;
@@ -7,90 +8,120 @@ interface Props {
 }
 
 const { filter, limit } = Astro.props;
+const visibleLimit = limit ?? 8;
+const allowedCategories = ['plumbing', 'electrical', 'interior'];
+
+// Build gallery items server-side from public/images to ensure all images show.
+function listFiles(dir) {
+  try {
+    return fs.readdirSync(dir).filter((f) => {
+      const ext = path.extname(f).toLowerCase();
+      return ['.jpg', '.jpeg', '.png', '.jfif', '.webp', '.gif'].includes(ext);
+    });
+  } catch {
+    return [];
+  }
+}
+
+const publicImages = path.join(process.cwd(), 'public', 'images');
+const generated = [];
+let idCounter = 1;
+
+for (const cat of allowedCategories) {
+  const dir = path.join(publicImages, cat);
+  const files = listFiles(dir);
+  for (const file of files) {
+    generated.push({
+      id: `${cat}-${idCounter++}`,
+      file: `/images/${cat}/${encodeURIComponent(file)}`,
+      alt: `${cat} project photo`,
+      category: cat,
+      title: `${cat} project`,
+    });
+  }
+}
+
+// include top-level images (pop-ceiling etc.)
+const topFiles = listFiles(publicImages);
+for (const file of topFiles) {
+  generated.push({
+    id: `top-${idCounter++}`,
+    file: `/images/${encodeURIComponent(file)}`,
+    alt: `site image`,
+    category: 'pop',
+    title: file,
+  });
+}
 
 const items = filter
-  ? galleryItems.filter((g) => g.category === filter)
-  : limit
-  ? galleryItems.slice(0, limit)
-  : galleryItems;
+  ? generated.filter((g) => g.category === filter)
+  : generated.filter((g) => allowedCategories.includes(g.category) || g.category === 'pop');
+
+const hasMore = !filter && items.length > visibleLimit;
 ---
 
-{!filter && (
-  <!-- Category filter tabs — JS-driven -->
-  <div class="flex flex-wrap gap-2 justify-center mb-8" id="gallery-filters">
-    {categories.map((cat) => (
-      <button
-        data-filter={cat.id}
-        class={`gallery-filter-btn px-5 py-2 rounded-full text-sm font-medium border transition-colors ${
-          cat.id === 'all'
-            ? 'bg-azure text-white border-azure'
-            : 'bg-white text-slate-600 border-slate-200 hover:border-azure hover:text-azure'
-        }`}
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery-grid">
+  {items.map((item, index) => {
+    const hidden = !filter && index >= visibleLimit;
+    return (
+      <div
+        class="gallery-item group relative aspect-square rounded-2xl overflow-hidden bg-sky-light border border-slate-200 cursor-pointer"
+        data-category={item.category}
+        data-hidden={hidden ? 'true' : 'false'}
+        style={hidden ? 'display:none' : ''}
       >
-        {cat.label}
-      </button>
-    ))}
+        <img
+          src={item.file}
+          alt={item.alt}
+          width="400"
+          height="400"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+        />
+        <div
+          class="absolute inset-0 items-center justify-center flex-col text-center p-4 hidden"
+          aria-hidden="true"
+        >
+          <div class="text-4xl mb-2">
+            {item.category === 'plumbing' ? '🔧' : item.category === 'electrical' ? '⚡' : item.category === 'interior' ? '🏠' : '🏗️'}
+          </div>
+          <p class="text-xs text-slate-500 font-medium">{item.title}</p>
+        </div>
+        <div class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+          <p class="text-white text-sm font-heading font-semibold">{item.title}</p>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+{hasMore && (
+  <div class="mt-8 text-center">
+    <button
+      id="gallery-view-more"
+      class="inline-flex items-center justify-center rounded-full bg-azure px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-azure/20 transition hover:bg-sky"
+      type="button"
+    >
+      View More Work
+    </button>
   </div>
 )}
 
-<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery-grid">
-  {items.map((item) => (
-    <div
-      class="gallery-item group relative aspect-square rounded-2xl overflow-hidden bg-sky-light border border-slate-200 cursor-pointer"
-      data-category={item.category}
-    >
-      <!-- Placeholder — replace src with real image path when photos arrive -->
-      <img
-        src={item.file}
-        alt={item.alt}
-        width="400"
-        height="400"
-        loading="lazy"
-        decoding="async"
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
-      />
-      <!-- Fallback placeholder when image is missing -->
-      <div
-        class="absolute inset-0 items-center justify-center flex-col text-center p-4 hidden"
-        aria-hidden="true"
-      >
-        <div class="text-4xl mb-2">
-          {item.category === 'plumbing' ? '🔧' : item.category === 'electrical' ? '⚡' : item.category === 'interior' ? '🏠' : '🏗️'}
-        </div>
-        <p class="text-xs text-slate-500 font-medium">{item.title}</p>
-      </div>
-      <!-- Hover overlay -->
-      <div class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-        <p class="text-white text-sm font-heading font-semibold">{item.title}</p>
-      </div>
-    </div>
-  ))}
-</div>
-
 {!filter && (
   <script>
-    const btns = document.querySelectorAll<HTMLButtonElement>('.gallery-filter-btn');
-    const items = document.querySelectorAll<HTMLElement>('.gallery-item');
-
-    btns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-
-        btns.forEach((b) => {
-          b.classList.toggle('bg-azure', b === btn);
-          b.classList.toggle('text-white', b === btn);
-          b.classList.toggle('border-azure', b === btn);
-          b.classList.toggle('bg-white', b !== btn);
-          b.classList.toggle('text-slate-600', b !== btn);
-          b.classList.toggle('border-slate-200', b !== btn);
+    const viewMoreButton = document.getElementById('gallery-view-more');
+    if (viewMoreButton) {
+      viewMoreButton.addEventListener('click', () => {
+        document.querySelectorAll('.gallery-item[data-hidden="true"]').forEach((el) => {
+          // cast to HTMLElement so `style` and `dataset` are available in TS checks
+          const item = /** @type {HTMLElement} */ (el);
+          item.style.display = '';
+          item.dataset.hidden = 'false';
         });
-
-        items.forEach((item) => {
-          const visible = filter === 'all' || item.dataset.category === filter;
-          item.style.display = visible ? '' : 'none';
-        });
+        (/** @type {HTMLElement} */ (viewMoreButton)).style.display = 'none';
       });
-    });
+    }
   </script>
 )}

@@ -55,6 +55,7 @@ const description =
             title={svc.title}
             tagline={svc.tagline}
             icon={svc.icon}
+            image={svc.image}
             shortDesc={svc.shortDesc}
             slug={svc.slug}
             featured={i === 0}
@@ -78,7 +79,7 @@ const description =
   <!-- Why choose us -->
   <section class="bg-sky-light py-20 px-4 sm:px-6 lg:px-8" data-reveal>
     <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="max-w-3xl mx-auto">
         <div>
           <p class="text-azure font-semibold uppercase tracking-widest text-sm mb-2">Why PS Tech?</p>
           <h2 class="font-heading font-bold text-3xl sm:text-4xl text-navy mb-6 leading-tight">
@@ -117,14 +118,6 @@ const description =
             ))}
           </div>
         </div>
-        <!-- Photo placeholder -->
-        <div class="relative h-80 lg:h-auto rounded-3xl overflow-hidden bg-gradient-to-br from-azure to-navy flex items-center justify-center">
-          <div class="text-center text-white/40 p-8">
-            <div class="text-7xl mb-4">👷</div>
-            <p class="font-heading font-semibold text-lg">Team photo</p>
-            <p class="text-sm">Insert real team/work photo here</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -144,7 +137,7 @@ const description =
       <div class="flex flex-wrap gap-3 justify-center">
         {business.serviceAreas.map((area) => (
           <a
-            href={`/service-areas/${area.toLowerCase().replace(/\s+/g, '-')}`}
+            href="/service-areas"
             class="px-5 py-2.5 bg-sky-light border border-azure/20 text-navy font-medium rounded-full hover:bg-azure hover:text-white hover:border-azure transition-colors text-sm"
           >
             {area}, Indore

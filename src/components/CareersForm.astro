@@ -1,11 +1,10 @@
 ---
-// Form posts to /api/careers (Cloudflare Pages Function)
+import business from '../data/business.json';
+// Careers form: open WhatsApp with prefilled application details instead of emailing.
 ---
 
 <form
   id="careers-form"
-  action="/api/careers"
-  method="POST"
   class="space-y-5"
   novalidate
 >
@@ -76,27 +75,31 @@
 </form>
 
 <script>
-  const form = document.getElementById('careers-form') as HTMLFormElement | null;
+  const WHATSAPP_NUMBER = "{business.whatsapp}";
+  const form = document.getElementById('careers-form');
   const success = document.getElementById('car-success');
   const error = document.getElementById('car-error');
 
-  form?.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = new FormData(form);
+    const f = /** @type {HTMLFormElement} */ (form);
+    const data = new FormData(f);
     if (data.get('_hp')) return;
 
-    try {
-      const res = await fetch('/api/careers', { method: 'POST', body: data });
-      if (res.ok) {
-        form.reset();
-        success?.classList.remove('hidden');
-        error?.classList.add('hidden');
-      } else {
-        error?.classList.remove('hidden');
-        success?.classList.add('hidden');
-      }
-    } catch {
+    const name = String(data.get('name') || '').trim();
+    const phone = String(data.get('phone') || '').trim();
+    const role = String(data.get('role') || '').trim();
+    const experience = String(data.get('experience') || '').trim();
+    const message = String(data.get('message') || '').trim();
+
+    if (!name || !phone || !role) {
       error?.classList.remove('hidden');
+      return;
     }
+
+    const messageText = `Hi PS Tech,\nName: ${name}\nPhone: ${phone}\nRole: ${role}\nExperience: ${experience}\nMessage: ${message}`;
+    const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(messageText)}`;
+    window.open(url, '_blank');
+    try { f.reset(); success?.classList.remove('hidden'); } catch(e){}
   });
 </script>

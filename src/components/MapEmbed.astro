@@ -5,21 +5,13 @@ interface Props {
 const { class: className = '' } = Astro.props;
 ---
 
-<!-- INSERT TARGETED GBP IFRAME HERE -->
-<!-- Replace the placeholder div below with the real Google Maps embed
-     from the PS Tech Google Business Profile share link.
-     Example: <iframe src="https://www.google.com/maps/embed?pb=..." ...></iframe>
-     Make sure to add loading="lazy" and a title attribute for accessibility. -->
-<div
-  class={`bg-navy/60 flex items-center justify-center text-sky-light/50 text-xs text-center p-4 ${className}`}
-  role="img"
-  aria-label="Map placeholder — Google Business Profile embed to be inserted here"
->
-  <div>
-    <svg class="w-8 h-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-    </svg>
-    <p>Map embed<br/><span class="opacity-70">Insert GBP iframe</span></p>
-  </div>
-</div>
+<iframe 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.8555610951207!2d75.87915497407583!3d22.770740979351014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39630395ae01adb7%3A0x29ab7b6c925df59c!2sPS%20Tech%20(problem%20solver%20tech)!5e0!3m2!1sen!2sin!4v1783026302947!5m2!1sen!2sin" 
+  width="100%" 
+  height="100%" 
+  style="border:0;" 
+  allowfullscreen="" 
+  loading="lazy" 
+  referrerpolicy="no-referrer-when-downgrade"
+  class={className}
+></iframe>

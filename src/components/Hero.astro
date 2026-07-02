@@ -134,7 +134,12 @@ import business from '../data/business.json';
         shininess: 120,
       });
 
-      const drops: { mesh: THREE.Mesh; vx: number; vy: number; vz: number; phase: number }[] = [];
+      /**
+       * Drops array: keep a lightweight shape but avoid referencing THREE types
+       * so the editor/type-checker doesn't require the `THREE` namespace.
+       * @type {{ mesh: any; vx: number; vy: number; vz: number; phase: number }[]}
+       */
+      const drops = [];
       const COUNT = window.innerWidth < 768 ? 30 : 60;
 
       for (let i = 0; i < COUNT; i++) {

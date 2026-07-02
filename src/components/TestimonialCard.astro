@@ -8,11 +8,10 @@ interface Props {
 
 const { author, rating, date, text } = Astro.props;
 const stars = Array.from({ length: 5 }, (_, i) => i < rating);
-const formattedDate = new Date(date).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
 ---
 
 <div
-  class="bg-white rounded-2xl p-6 shadow-md border border-slate-100 flex flex-col"
+  class="bg-white rounded-2xl p-6 shadow-md border border-slate-100 flex flex-col testimonial-card"
   itemscope
   itemtype="https://schema.org/Review"
 >
@@ -31,15 +30,22 @@ const formattedDate = new Date(date).toLocaleDateString('en-IN', { month: 'long'
   </div>
 
   <!-- Review text -->
-  <p class="text-slate-700 text-sm leading-relaxed flex-1" itemprop="reviewBody">
-    "{text}"
-  </p>
+  <div class="flex-1 flex flex-col items-start">
+    <p class="text-slate-700 text-sm leading-relaxed review-text line-clamp-4 transition-all duration-300" itemprop="reviewBody">
+      "{text}"
+    </p>
+    {text.length > 100 && (
+      <button type="button" class="text-azure text-xs font-semibold mt-2 hover:underline read-more-btn cursor-pointer">
+        Read full review
+      </button>
+    )}
+  </div>
 
   <!-- Attribution -->
   <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
     <div>
       <p class="font-heading font-semibold text-navy text-sm" itemprop="author">{author}</p>
-      <p class="text-xs text-slate-400">{formattedDate}</p>
+      <p class="text-xs text-slate-400">{date}</p>
     </div>
     <!-- Google badge -->
     <div class="flex items-center gap-1.5 text-xs text-slate-400">
@@ -53,3 +59,21 @@ const formattedDate = new Date(date).toLocaleDateString('en-IN', { month: 'long'
     </div>
   </div>
 </div>
+
+<script>
+  // Add an event listener to all read-more buttons across testimonial cards
+  document.querySelectorAll('.testimonial-card').forEach(card => {
+    const btn = card.querySelector('.read-more-btn');
+    const text = card.querySelector('.review-text');
+    if (btn && text) {
+      btn.addEventListener('click', () => {
+        text.classList.toggle('line-clamp-4');
+        if (text.classList.contains('line-clamp-4')) {
+          btn.textContent = 'Read full review';
+        } else {
+          btn.textContent = 'Show less';
+        }
+      });
+    }
+  });
+</script>
