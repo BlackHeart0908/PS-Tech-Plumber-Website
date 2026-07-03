@@ -93,8 +93,10 @@ import business from '../data/business.json';
     const message = String(data.get('message') || '').trim();
 
     if (!name || !phone || !role) {
-      error?.textContent = 'Please fill in all required fields (Name, Phone & Role)';
-      error?.classList.remove('hidden');
+      if (error) {
+        error.textContent = 'Please fill in all required fields (Name, Phone & Role)';
+        error.classList.remove('hidden');
+      }
       return;
     }
 
