@@ -1,6 +1,5 @@
 ---
-import fs from 'fs';
-import path from 'path';
+import { galleryItems } from '../data/gallery.js';
 
 interface Props {
   filter?: string;
@@ -11,51 +10,9 @@ const { filter, limit } = Astro.props;
 const visibleLimit = limit ?? 8;
 const allowedCategories = ['plumbing', 'electrical', 'interior'];
 
-// Build gallery items server-side from public/images to ensure all images show.
-function listFiles(dir) {
-  try {
-    return fs.readdirSync(dir).filter((f) => {
-      const ext = path.extname(f).toLowerCase();
-      return ['.jpg', '.jpeg', '.png', '.jfif', '.webp', '.gif'].includes(ext);
-    });
-  } catch {
-    return [];
-  }
-}
-
-const publicImages = path.join(process.cwd(), 'public', 'images');
-const generated = [];
-let idCounter = 1;
-
-for (const cat of allowedCategories) {
-  const dir = path.join(publicImages, cat);
-  const files = listFiles(dir);
-  for (const file of files) {
-    generated.push({
-      id: `${cat}-${idCounter++}`,
-      file: `/images/${cat}/${encodeURIComponent(file)}`,
-      alt: `${cat} project photo`,
-      category: cat,
-      title: `${cat} project`,
-    });
-  }
-}
-
-// include top-level images (pop-ceiling etc.)
-const topFiles = listFiles(publicImages);
-for (const file of topFiles) {
-  generated.push({
-    id: `top-${idCounter++}`,
-    file: `/images/${encodeURIComponent(file)}`,
-    alt: `site image`,
-    category: 'pop',
-    title: file,
-  });
-}
-
 const items = filter
-  ? generated.filter((g) => g.category === filter)
-  : generated.filter((g) => allowedCategories.includes(g.category) || g.category === 'pop');
+  ? galleryItems.filter((g) => g.category === filter)
+  : galleryItems.filter((g) => allowedCategories.includes(g.category) || g.category === 'pop');
 
 const hasMore = !filter && items.length > visibleLimit;
 ---
