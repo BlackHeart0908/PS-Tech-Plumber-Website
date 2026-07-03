@@ -72,11 +72,13 @@ import business from '../data/business.json';
   </div>
 
   <!-- Scroll cue -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 animate-bounce" aria-hidden="true">
-    <span class="text-xs">Scroll</span>
-    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-    </svg>
+  <div class="absolute inset-x-0 bottom-4 sm:bottom-8 flex justify-center pointer-events-none z-20">
+    <div class="flex flex-col items-center gap-2 text-white/40 hero-scroll-cue" aria-hidden="true">
+      <span class="text-xs">Scroll</span>
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
   </div>
 </section>
 
@@ -86,11 +88,25 @@ import business from '../data/business.json';
     transform: translateY(24px);
     animation: heroFadeUp 0.7s ease forwards;
   }
+  .hero-scroll-cue {
+    animation: heroScrollBounce 1.5s ease-in-out infinite;
+  }
   @keyframes heroFadeUp {
     to { opacity: 1; transform: translateY(0); }
   }
+  @keyframes heroScrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+  @media (max-width: 768px) {
+    .hero-scroll-cue {
+      bottom: 0;
+      padding-top: 10px;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .hero-fade-in { animation: none; opacity: 1; transform: none; }
+    .hero-scroll-cue { animation: none; }
     #hero-canvas { display: none; }
   }
 </style>
