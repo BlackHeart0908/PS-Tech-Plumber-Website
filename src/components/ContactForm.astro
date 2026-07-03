@@ -84,7 +84,7 @@ import business from '../data/business.json';
     Message sent! Our team will call you back shortly.
   </div>
   <div id="cf-error" class="hidden bg-red-50 border border-red-200 text-red-800 rounded-xl p-4 text-sm text-center">
-    Something went wrong. Please call us directly at <a href="tel:+919119943168" class="font-bold underline">+91 91199 43168</a>.
+    Please fill in all required fields (Name & Phone Number).
   </div>
 </form>
 
@@ -106,6 +106,7 @@ import business from '../data/business.json';
     const message = String(data.get('message') || '').trim();
 
     if (!name || !phone) {
+      error?.textContent = 'Please fill in all required fields (Name & Phone Number)';
       error?.classList.remove('hidden');
       return;
     }

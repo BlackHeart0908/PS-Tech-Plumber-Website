@@ -70,7 +70,7 @@ import business from '../data/business.json';
     Application received! We'll be in touch within 2 working days.
   </div>
   <div id="car-error" class="hidden bg-red-50 border border-red-200 text-red-800 rounded-xl p-4 text-sm text-center">
-    Something went wrong. Please WhatsApp your details to <a href="https://wa.me/919119943168" class="font-bold underline">+91 91199 43168</a>.
+    Please fill in all required fields (Name, Phone & Role).
   </div>
 </form>
 
@@ -93,6 +93,7 @@ import business from '../data/business.json';
     const message = String(data.get('message') || '').trim();
 
     if (!name || !phone || !role) {
+      error?.textContent = 'Please fill in all required fields (Name, Phone & Role)';
       error?.classList.remove('hidden');
       return;
     }
