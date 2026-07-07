@@ -6,12 +6,12 @@ import business from '../data/business.json';
   <!-- Three.js canvas — 3D water/pipe scene -->
   <canvas
     id="hero-canvas"
-    class="absolute inset-0 w-full h-full opacity-60"
+    class="absolute inset-0 w-full h-full opacity-90"
     aria-hidden="true"
   ></canvas>
 
   <!-- Gradient overlay for readability -->
-  <div class="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-navy/65 via-navy/35 to-transparent pointer-events-none"></div>
 
   <!-- Content -->
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -170,9 +170,9 @@ import business from '../data/business.json';
         scene.add(mesh);
         drops.push({
           mesh,
-          vx: (Math.random() - 0.5) * 0.003,
-          vy: (Math.random() - 0.5) * 0.004,
-          vz: (Math.random() - 0.5) * 0.002,
+          vx: (Math.random() - 0.5) * 0.011,
+          vy: (Math.random() - 0.5) * 0.014,
+          vz: (Math.random() - 0.5) * 0.007,
           phase: Math.random() * Math.PI * 2,
         });
       }
@@ -188,13 +188,13 @@ import business from '../data/business.json';
       let frame = 0;
       function animate() {
         frame++;
-        const t = frame * 0.01;
+        const t = frame * 0.03;
 
         drops.forEach((d) => {
           d.mesh.position.x += d.vx;
-          d.mesh.position.y += d.vy + Math.sin(t + d.phase) * 0.001;
+          d.mesh.position.y += d.vy + Math.sin(t + d.phase) * 0.003;
           d.mesh.position.z += d.vz;
-          d.mesh.rotation.y += 0.005;
+          d.mesh.rotation.y += 0.015;
 
           // Wrap around
           if (Math.abs(d.mesh.position.x) > 7) d.vx *= -1;
@@ -202,7 +202,7 @@ import business from '../data/business.json';
           if (Math.abs(d.mesh.position.z) > 3) d.vz *= -1;
         });
 
-        pipe.rotation.y = t * 0.2;
+        pipe.rotation.y = t * 0.5;
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
       }
