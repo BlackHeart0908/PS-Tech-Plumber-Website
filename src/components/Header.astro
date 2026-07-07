@@ -24,25 +24,27 @@ const currentPath = Astro.url.pathname;
       <div class="flex items-center justify-between h-16 lg:h-18">
 
         <!-- Logo / Brand -->
-        <a href="/" class="flex items-center gap-2 group" aria-label="PS Tech Home">
-          <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-            <defs>
-              <linearGradient id="headerBluGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ea580c"/>
-                <stop offset="100%" stop-color="#f97316"/>
-              </linearGradient>
-            </defs>
-            <!-- House roof -->
-            <path d="M 25 55 L 50 30 L 75 55" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Right wall -->
-            <path d="M 65 55 L 65 80 L 50 80" fill="none" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Left wall -->
-            <path d="M 35 55 L 35 75 C 35 83 42 83 45 77" fill="none" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Water droplet -->
-            <path d="M 50 45 C 42 52 38 58 38 65 C 38 72 43 76 50 76 C 57 76 62 72 62 65 C 62 58 58 52 50 45 Z" fill="#1e3a8a"/>
-            <!-- Lightning bolt -->
-            <polygon points="51 42 46 58 50 58 42 72 55 58 51 58" fill="url(#headerBluGrad)"/>
-          </svg>
+        <a href="/" class="flex items-center gap-2.5 group" aria-label="PS Tech Home">
+          <div class="w-11 h-11 bg-white rounded-xl flex items-center justify-center shrink-0 shadow-md group-hover:shadow-lg transition-shadow">
+            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+              <defs>
+                <linearGradient id="headerBluGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ea580c"/>
+                  <stop offset="100%" stop-color="#f97316"/>
+                </linearGradient>
+              </defs>
+              <!-- House roof -->
+              <path d="M 25 55 L 50 30 L 75 55" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Right wall -->
+              <path d="M 65 55 L 65 80 L 50 80" fill="none" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Left wall -->
+              <path d="M 35 55 L 35 75 C 35 83 42 83 45 77" fill="none" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Water droplet -->
+              <path d="M 50 45 C 42 52 38 58 38 65 C 38 72 43 76 50 76 C 57 76 62 72 62 65 C 62 58 58 52 50 45 Z" fill="#1e3a8a"/>
+              <!-- Lightning bolt -->
+              <polygon points="51 42 46 58 50 58 42 72 55 58 51 58" fill="url(#headerBluGrad)"/>
+            </svg>
+          </div>
           <div class="hidden sm:block">
             <span class="text-white font-heading font-bold text-base leading-tight block">PS Tech</span>
             <span class="text-sky-light/70 text-xs leading-tight block">Problem Solver Tech</span>
