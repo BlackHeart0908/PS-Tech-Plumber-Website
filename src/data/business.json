@@ -37,37 +37,41 @@
     "Mahalaxmi Nagar",
     "Khajrana",
     "Palasia",
-    "Bhawarkuan"
+    "Bhawarkuan",
+    "Ujjain",
+    "Khargone",
+    "Bhopal",
+    "Devas"
   ],
   "reviews": [
     {
       "author": "Rajesh Verma",
       "rating": 5,
-      "date": "2024-03-10",
+      "date": "2026-06-15",
       "text": "Called PS Tech for a major pipe burst at 10 PM and they arrived within 90 minutes. Excellent emergency service. Fixed everything neatly with no mess left behind. Highly recommend!"
     },
     {
       "author": "Priya Sharma",
       "rating": 5,
-      "date": "2024-02-18",
+      "date": "2026-05-22",
       "text": "Got my geyser repaired and a new tap installed the same day. The technician was polite, wore shoe covers, and explained what was wrong clearly. Transparent pricing — no hidden charges."
     },
     {
       "author": "Anil Patidar",
       "rating": 5,
-      "date": "2024-01-22",
+      "date": "2026-04-18",
       "text": "PS Tech did the complete interior plumbing for my new flat in Vijay Nagar. Very professional team. On time, clean work. Will definitely hire again for any home service."
     },
     {
       "author": "Sunita Joshi",
       "rating": 5,
-      "date": "2023-12-05",
+      "date": "2025-03-10",
       "text": "Had a stubborn drain clog that two other plumbers couldn't fix. PS Tech solved it in under an hour and also checked all other drains for free. Great attitude and expertise."
     },
     {
       "author": "Mahesh Dubey",
       "rating": 4,
-      "date": "2023-11-14",
+      "date": "2025-02-05",
       "text": "Booked them for a sump pump installation before monsoon. They advised the right pump size for my basement and completed the job cleanly. Very satisfied with the monsoon-readiness now."
     }
   ]

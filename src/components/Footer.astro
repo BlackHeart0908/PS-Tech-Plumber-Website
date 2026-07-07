@@ -19,6 +19,10 @@ const areaLinks = [
   { href: '/service-areas', label: 'Khajrana' },
   { href: '/service-areas', label: 'Palasia' },
   { href: '/service-areas', label: 'Bhawarkuan' },
+  { href: '/service-areas', label: 'Ujjain' },
+  { href: '/service-areas', label: 'Khargone' },
+  { href: '/service-areas', label: 'Bhopal' },
+  { href: '/service-areas', label: 'Devas' },
 ];
 ---
 
@@ -29,10 +33,20 @@ const areaLinks = [
 
       <!-- Brand + NAP -->
       <div class="lg:col-span-1">
-        <a href="/" class="flex items-center gap-3 mb-5">
-          <div class="w-10 h-10 bg-azure rounded-xl flex items-center justify-center text-white font-heading font-bold text-lg">
-            PST
-          </div>
+        <a href="/" class="flex items-center gap-2 mb-5">
+          <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="footerOrangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ea580c"/>
+                <stop offset="100%" stop-color="#f97316"/>
+              </linearGradient>
+            </defs>
+            <path d="M 25 55 L 50 30 L 75 55" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 65 55 L 65 80 L 50 80" fill="none" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 35 55 L 35 75 C 35 83 42 83 45 77" fill="none" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 50 45 C 42 52 38 58 38 65 C 38 72 43 76 50 76 C 57 76 62 72 62 65 C 62 58 58 52 50 45 Z" fill="#1e3a8a"/>
+            <polygon points="51 42 46 58 50 58 42 72 55 58 51 58" fill="url(#footerOrangeGrad)"/>
+          </svg>
           <div>
             <span class="text-white font-heading font-bold text-base block">PS Tech</span>
             <span class="text-sky-light/60 text-xs block">Problem Solver Tech</span>
